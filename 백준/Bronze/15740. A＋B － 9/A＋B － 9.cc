@@ -3,15 +3,15 @@
 using namespace std;
 
 int bigint(string a, string b) {
-    int len = a.length();
+    int lena = a.length();
+    int lenb = b.length();
 
-    for (int i = 0; i < len; i++) {
-        if ((int)a[i] - '0' > (int)b[i] - '0') {
-            return 1; // a가 더 큼
-        } 
-        else if ((int)a[i] - '0' < (int)b[i] - '0') {
-            return 0; // b가 더 큼
-		}
+    if (lena > lenb) return 1;
+    if (lena < lenb) return 0;
+
+    for (int i = 0; i < lena; i++) {
+        if (a[i] > b[i]) return 1; // a가 더 큼
+        if (a[i] < b[i]) return 0; // b가 더 큼
     }
     return 2;
 }
@@ -35,39 +35,30 @@ int main()
             // a가 음수, b가 양수인 경우
             a = a.substr(1); // a에서 부호 제거
             lena--;
-
-            if (lena == lenb) negative = bigint(a, b);
-            if (negative == 2) {
-				cout << 0;
-                return 0;
-            }
-            if (lena > lenb) {
-                negative = 1;
-            }
-            else if (lena < lenb || negative == 0) {
-                negative = 0;
+			negative = bigint(a, b);
+            if (negative == 0) {
                 swap(a, b);
-				swap(lena, lenb);
+                swap(lena, lenb);
             }
+            else if (negative == 2) {
+                cout << 0;
+                return 0;
+			}
         }
 
         else {
             // a가 양수, b가 음수인 경우
             b = b.substr(1); // b에서 부호 제거
             lenb--;
-            if (lenb == lena) negative = bigint(b, a);
-            if (negative == 2) {
+			negative = bigint(b, a);
+            if (negative == 1) {
+                swap(a, b);
+                swap(lena, lenb);
+			}
+            else if (negative == 2) {
                 cout << 0;
                 return 0;
-            }
-            if (lenb > lena) {
-                negative = 1;
-            }
-            else if (lenb < lena) {
-                negative = 0;
-                swap(a, b);
-				swap(lena, lenb);
-            }
+			}
         }
 
         while (true) {
@@ -79,18 +70,22 @@ int main()
 			int intb = lenb >= 0 ? (int)b[lenb] - '0' : 0;
 
             // 계산
-            int temp = inta - intb - carry;            
-            if (temp < 0) {
+            int temp = inta - intb - carry;       
+            if (temp < 0 && lena > 0) {
                 temp += 10;
                 carry = 1;
             } 
             else carry = 0;
-			result += (char)(temp + '0');
+			result += (char)(abs(temp) + '0');
         }
 
         while (!result.empty() && result.back() == '0') {
             result.pop_back();
 		}
+        if (result.empty()) {
+            cout << 0;
+            return 0;
+        }
     }
 
     // 부호가 같을 때
