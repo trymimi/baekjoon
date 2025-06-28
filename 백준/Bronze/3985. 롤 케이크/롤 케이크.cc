@@ -1,45 +1,40 @@
 #include <iostream>
-#include <set>
-#include <string>
-#include <algorithm>
-#include <vector>
-#include <queue>
 using namespace std;
 
-int cake[1001];
-int people[1001];
-int L, N;
-int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+bool cake[1001] = { false };
 
-	int ex_ans;
-	int ex_val = 0;
-	int ans = 0;
-	int ans_val = 0;
+int main()
+{
+    cin.tie(0);
+    cout.tie(0);
+    ios_base::sync_with_stdio(0);
 
-	cin >> L >> N;
+    int l, n;
+    cin >> l >> n;  // 길이, 입력 수
 
-	int st, ed;
-	for (int i = 0; i < N; i++) {
-		cin >> st >> ed;
-		if (ed - st + 1 > ex_val) {
-			ex_val = ed - st + 1;
-			ex_ans = i + 1;
-		}
-		for (int j = st; j <= ed; j++) {
-			if (cake[j] == 0) {
-				cake[j] = i + 1;
-				people[i + 1]++;
-			}
-		}
-	}
-	for (int i = 1; i <= N; i++) {
-		if (people[i] > ans_val) {
-			ans_val = people[i];
-			ans = i;
-		}
-	}
-	cout << ex_ans << '\n' << ans;
+    int m = 0, m_real = 0, f_index, r_index;
+    for (int i = 1; i <= n; i++) {
+        int p, k, cnt = 0;
+        cin >> p >> k;
+        if (k - p - 1 > m) {    // 많길 기대한 방청객
+            m = k - p - 1;
+            f_index = i;
+        }
+
+        for (int j = p; j <= k; j++) {  // 케이크에 쓰기
+            if (!cake[j]) {
+                cake[j] = true;
+                cnt++;
+            }
+        }
+
+        if (cnt > m_real) {        // 진짜 많은 방청객
+            m_real = cnt;
+            r_index = i;
+        }
+    }
+
+    cout << f_index << '\n' << r_index;
+
+    return 0;
 }
