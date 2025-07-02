@@ -2,7 +2,7 @@
 using namespace std;
 
 int month[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-bool isYoon(int n) {
+bool isYoon(int n){
     return (n % 4 == 0 && n % 100 != 0) || (n % 400 == 0);
 }
 
@@ -25,11 +25,11 @@ int main()
     }
 
     int day = 0;
-    // 같은 달일때
+    // d
     if (m == endM && endD > d) {
         day += endD - d;
     }
-
+    // m
     else {
         if (m == 2 && isYoon(y))
             day += 29 - d;
@@ -55,11 +55,9 @@ int main()
         }
         day += endD;
     }
-
+    // y
     while (endY > y) {
-        if (endM > 2 && isYoon(y + 1)) day += 366;
-        else if (endM <= 2 && isYoon(y)) day += 366;
-        else day += 365;
+        day += isYoon(y) ? 366 : 365;
         y++;
     }
 
