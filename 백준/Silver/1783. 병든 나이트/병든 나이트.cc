@@ -12,12 +12,10 @@ int main()
 
     if (n == 1) result = 1;
     else if (n == 2) {
-        result = (m + 1) / 2;
-        if (result >= 4) result = 4;
+        result = min((m + 1) / 2, 4);
     }
     else {
-        if (m < 5) result = m;
-        else if (m == 5) result = 4;
+        if (m <= 5) result = min(m, 4);
         else result = m - 2;
     }
     cout << result;
