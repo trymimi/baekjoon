@@ -1,13 +1,12 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 1000001
-bool isNotPrime[MAX];
-void eratos() {
+bool isNotPrime[1000001];
+void eratos(int n) {
 	isNotPrime[0] = isNotPrime[1] = true;
-	for (int i = 2; i * i < MAX; i++) {
+	for (int i = 2; i * i < n; i++) {
 		if (!isNotPrime[i]) {
-			for (int j = i + i; j < MAX; j += i) {
+			for (int j = i + i; j < n; j += i) {
 				isNotPrime[j] = true;
 			}
 		}
@@ -32,7 +31,7 @@ int main() {
 	cin >> n;
 
 	// 에라토스테네스의 체
-	eratos();
+	eratos(n);
 
 	// 8 미만은 불가능
 	if (n < 8) {
