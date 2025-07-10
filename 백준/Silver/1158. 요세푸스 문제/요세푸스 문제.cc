@@ -14,17 +14,15 @@ int main()
     queue<int> arr;
     for (int i = 1; i <= n; i++) arr.push(i);
     
-    int stack = 0;
-    int result[5001];
-    while (!arr.empty()) {
-        stack++;
-        int a = arr.front();
-        arr.pop();
-        if (stack % k == 0) result[stack / k] = a;
-        else arr.push(a);
-    }
-    
     cout << "<";
-    for (int i = 1; i < n; i++) cout << result[i] << ", ";
-    cout << result[n] << ">";
+    while (!arr.empty()) {
+        for (int i = 1; i < k; i++) {
+            arr.push(arr.front());
+            arr.pop();
+        }
+        cout << arr.front();
+        arr.pop();
+        if (!arr.empty()) cout << ", ";
+    }
+    cout << ">";
 }
