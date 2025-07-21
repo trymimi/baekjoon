@@ -3,6 +3,8 @@
 using namespace std;
 
 int r[1000001];
+int arr[1000001];
+int result[1000001];
 
 int main()
 {
@@ -13,40 +15,31 @@ int main()
     int n;
     cin >> n;
 
-    stack<int> s;
-    for (int i = 0; i < n; i++) {
-        int a;
-        cin >> a;
-        s.push(a);
-    }
+    for (int i = 0; i < n; i++) cin >> arr[i];
 
     int m = 0;
-    stack<int> result;
-    for (int i = 0; i < n; i++) {
-        int a = s.top();
-        r[i] = a;
-        s.pop();
+    int size = 0;
+    for (int i = n - 1; i >= 0; i--) {
+        int a = arr[i];
+        r[n - 1 - i] = a;
+
         if (a >= m) {
-            result.push(-1);
+            result[size++] = -1;
             m = a;
         }
         else {
-            for (int j = i - 1; j >= 0; j--) {
+            for (int j = n - i - 2; j >= 0; j--) {
                 if (r[j] > a) {
-                    result.push(r[j]);
+                    result[size++] = r[j];
                     break;
                 }
-                else if (result.top() > a) {
-                    result.push(result.top());
+                else if (result[size - 1] > a) {
+                    result[size++] = result[size - 1];
                     break;
                 }
             }
         }
     }
 
-    while (!result.empty()) {
-        int a = result.top();
-        result.pop();
-        cout << a << ' ';
-    }
+    for (int i = size - 1; i >= 0; i--) cout << result[i] << ' ';
 }
