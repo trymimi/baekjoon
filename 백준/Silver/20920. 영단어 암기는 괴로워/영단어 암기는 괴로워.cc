@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <map>
+#include <unordered_map>
 using namespace std;
 
 int main()
@@ -14,7 +14,7 @@ int main()
     cin >> n >> m;
 
     // 단어, 빈도 저장
-    map<string, int> freq;
+    unordered_map<string, int> freq;
     while (n--) {
         string s; cin >> s;
         if (s.length() >= m) {
