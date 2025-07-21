@@ -1,6 +1,6 @@
 #include <iostream>
 #include <algorithm>
-#include <unordered_set>
+#include <vector>
 #include <map>
 using namespace std;
 
@@ -22,17 +22,17 @@ int main()
         }
     }
 
-    vector<string> word;
+    vector<pair<string, int>> word;
     for (auto& p : freq) {
-        word.push_back(p.first);
+        word.push_back(p);
     }
 
     // 빈도, 길이, 사전 순으로 정렬
-    sort(word.begin(), word.end(), [&](const string& a, const string& b) {
-        if (freq[a] != freq[b]) return freq[a] > freq[b];
-        if (a.length() != b.length()) return a.length() > b.length();
-        return a < b;
+    sort(word.begin(), word.end(), [&](const auto& a, const auto& b) {
+        if (a.second != b.second) return a.second > b.second;
+        if (a.first.size() != b.first.size()) return a.first.size() > b.first.size();
+        return a.first < b.first;
     });
 
-    for (const auto& w : word) cout << w << '\n';
+    for (const auto& w : word) cout << w.first << '\n';
 }
