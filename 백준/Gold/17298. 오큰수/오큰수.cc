@@ -1,8 +1,6 @@
 #include <iostream>
-#include <stack>
 using namespace std;
 
-int r[1000001];
 int arr[1000001];
 int result[1000001];
 
@@ -18,28 +16,27 @@ int main()
     for (int i = 0; i < n; i++) cin >> arr[i];
 
     int m = 0;
-    int size = 0;
     for (int i = n - 1; i >= 0; i--) {
-        int a = arr[i];
-        r[n - 1 - i] = a;
-
-        if (a >= m) {
-            result[size++] = -1;
-            m = a;
+        // 최대값보다도 클 때
+        if (arr[i] >= m) {
+            result[i] = -1;
+            m = arr[i];
         }
         else {
-            for (int j = n - i - 2; j >= 0; j--) {
-                if (r[j] > a) {
-                    result[size++] = r[j];
+            for (int j = i + 1; j < n; j++) {
+                // 가까운 수가 클 때
+                if (arr[j] > arr[i]) {
+                    result[i] = arr[j];
                     break;
                 }
-                else if (result[size - 1] > a) {
-                    result[size++] = result[size - 1];
+                // 가까운 수의 오큰수가 클 때
+                else if (result[j] > arr[i]) {
+                    result[i] = result[j];
                     break;
                 }
             }
         }
     }
 
-    for (int i = size - 1; i >= 0; i--) cout << result[i] << ' ';
+    for (int i = 0; i < n; i++) cout << result[i] << ' ';
 }
