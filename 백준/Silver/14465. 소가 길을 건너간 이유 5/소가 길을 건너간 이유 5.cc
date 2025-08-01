@@ -2,8 +2,6 @@
 #include <algorithm>
 using namespace std;
 
-bool blink[100001];
-
 int main()
 {
     cin.tie(0);
@@ -11,6 +9,8 @@ int main()
     ios_base::sync_with_stdio(0);
 
     int n, k, b; cin >> n >> k >> b;
+
+    bool blink[100001] = { 0 };
 
     while (b--) {
         int temp; cin >> temp;
