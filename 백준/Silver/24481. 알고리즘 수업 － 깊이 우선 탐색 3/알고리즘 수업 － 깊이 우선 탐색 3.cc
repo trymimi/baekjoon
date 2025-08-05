@@ -9,9 +9,9 @@ int d[100001];
 void DFS(int value, int depth) {
     d[value] = depth;
 
-    for (int i : link[value]) {
-        if (!d[i]) {
-            DFS(i, depth + 1);
+    for (int i = 0; i < link[value].size(); i++) {
+        if (!d[link[value][i]]) {
+            DFS(link[value][i], depth + 1);
         }
     }
 }
