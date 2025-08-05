@@ -3,16 +3,14 @@
 #include <vector>
 using namespace std;
 
-bool isvisit[100001];
 vector<int> link[100001];
 int d[100001];
 
 void DFS(int value, int depth) {
-    isvisit[value] = true;
     d[value] = depth;
 
     for (int i : link[value]) {
-        if (!isvisit[i]) {
+        if (!d[i]) {
             DFS(i, depth + 1);
         }
     }
